@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path');
+const { readdir } = require('fs/promises');
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
@@ -18,6 +19,12 @@ app.whenReady().then(() => {
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+
+  ipcMain.on('list-home', (ev, request) => {
+    readdir(app.getPath('home')).then(directories => {
+      ev.sender.send(request.response, directories)
+    })
   })
 })
 
