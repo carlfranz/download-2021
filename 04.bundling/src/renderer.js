@@ -1,5 +1,7 @@
 const { send, once } = __COMMUNICATION_WITH_MAIN_PROCESS;
 
+console.log('renderer');
+
 window.addEventListener("DOMContentLoaded", () => {
   const { chrome, node, electron } = __VARIABLES_FROM_MAIN_PROCESS;
   document.getElementById("node-version").innerText = node;
