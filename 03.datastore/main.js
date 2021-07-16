@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path');
-const { readdir } = require('fs/promises');
+const Store = require('electron-store');
+const store = new Store();
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
@@ -21,10 +22,15 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 
-  ipcMain.on('list-home', (ev, request) => {
-    readdir(app.getPath('home')).then(directories => {
-      ev.sender.send(request.response, directories)
-    })
+  ipcMain.on('store-data', (ev, request) => {
+    store.set('weeks',request.payload);
+    const saved = store.get('weeks',request.payload)
+    ev.sender.send(request.response, { data: saved });
+  })
+
+  ipcMain.on('retrieve-data', (ev, request) => {
+    const retrieved = store.get('weeks',request.payload);
+    ev.sender.send(request.response, { data: retrieved })
   })
 })
 
