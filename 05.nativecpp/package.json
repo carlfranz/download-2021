@@ -8,7 +8,8 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "publish": "electron-forge publish"
+    "publish": "electron-forge publish",
+    "build": "node-gyp build"
   },
   "keywords": [],
   "author": {
@@ -30,8 +31,10 @@
     "style-loader": "^2.0.0"
   },
   "dependencies": {
+    "bindings": "^1.2.1",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-store": "^8.0.0"
+    "electron-store": "^8.0.0",
+    "node-addon-api": "^1.7.2"
   },
   "config": {
     "forge": {

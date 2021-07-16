@@ -1,6 +1,9 @@
 const { app, BrowserWindow } = require('electron');
 const dataStore = require('./data-store');
 const path = require('path');
+var addon = require('bindings')('hello');
+
+console.log(addon.hello(40)); // 'world'
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({

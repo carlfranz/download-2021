@@ -3,3 +3,5 @@ node_modules/
 out/
 
 .webpack
+05.nativecpp/build
+05.nativecpp/bin
